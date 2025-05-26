@@ -6,7 +6,7 @@
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jypark.pe.kr/blog"/>
     <subtitle>프론트엔드 개발 이야기</subtitle>
-    <icon>https://jypark.pe.kr/img/favicon.ico</icon>
+    <icon>https://jypark.pe.kr/favicon.ico</icon>
     <rights>Copyright © 2025 쌍팔년생 개발자</rights>
     <entry>
         <title type="html"><![CDATA[PostgreSQL 18에 UUIDv7이 도입됩니다]]></title>
