@@ -1,0 +1,27 @@
+{
+  "name": "쌍팔년생 개발자 블로그",
+  "short_name": "쌍팔년생 개발자",
+  "description": "쌍팔년생 개발자의 개인 블로그 - 프론트엔드 개발, React, TypeScript에 대한 경험과 지식을 공유합니다",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3182ce",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/img/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity", "technology"],
+  "lang": "ko",
+  "dir": "ltr"
+} 
