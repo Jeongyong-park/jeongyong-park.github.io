@@ -2,7 +2,7 @@
     "version": "https://jsonfeed.org/version/1",
     "title": "쌍팔년생 개발자 블로그",
     "home_page_url": "https://jypark.pe.kr/blog",
-    "description": "프론트엔드 개발 이야기",
+    "description": "쌍팔년생 개발자의 프론트엔드 개발 경험과 지식 공유",
     "items": [
         {
             "id": "https://jypark.pe.kr/blog/uuidv7-postgresql-18",

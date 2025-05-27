@@ -3,7 +3,7 @@
     <channel>
         <title>쌍팔년생 개발자 블로그</title>
         <link>https://jypark.pe.kr/blog</link>
-        <description>프론트엔드 개발 이야기</description>
+        <description>쌍팔년생 개발자의 프론트엔드 개발 경험과 지식 공유</description>
         <lastBuildDate>Mon, 26 May 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
