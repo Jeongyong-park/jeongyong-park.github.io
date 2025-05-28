@@ -1,0 +1,8 @@
+/blog/rss.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
+/blog/atom.xml
+  Content-Type: application/atom+xml; charset=utf-8
+
+/blog/feed.json
+  Content-Type: application/feed+json; charset=utf-8 
