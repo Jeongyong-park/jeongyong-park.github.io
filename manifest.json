@@ -9,19 +9,26 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/img/logo.png",
+      "src": "/img/logo-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/img/logo.png",
+      "src": "/img/logo-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
     }
   ],
   "categories": ["education", "productivity", "technology"],
   "lang": "ko",
-  "dir": "ltr"
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
 } 
