@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg fill="none" viewBox="0 0 960 104" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#b)" fill="url(#a)" stroke="#000" stroke-opacity=".7">
+<g clip-path="url(#b)" fill="url(#a)" stroke="oklch(0.2 0.1 0)" stroke-opacity=".7">
 <path d="m840 8h64v8h-24v56h8v8h8v8h8v8h-16v-8h-8v-8h-16v8h-8v8h-16v-8h8v-8h8v-8h8v-56h-24v-8zm80-8h16v48h24v8h-24v48h-16v-104z"/>
 <path d="m712 0h16v24h32v-24h16v48h-8v8h-48v-8h-8v-48zm16 32v16h32v-16h-32zm64-32h16v24h24v8h-24v24h-16v-56zm-72 64h88v24h-72v8h72v8h-80v-8h-8v-16h72v-8h-72v-8z"/>
 <path d="m584 8h48v72h-8v8h-8v8h-24v-8h16v-8h8v-64h-32v-8zm72-8h16v48h8v-48h16v104h-16v-48h-8v48h-16v-104z"/>
@@ -11,9 +11,9 @@
 </g>
 <defs>
 <linearGradient id="a" x1="480" x2="480" y1="-8" y2="120" gradientUnits="userSpaceOnUse">
-<stop stop-color="#F4781E" offset="0"/>
-<stop stop-color="#72916C" offset=".68543"/>
-<stop stop-color="#379D90" offset="1"/>
+<stop stop-color="oklch(0.65 0.2 29)" offset="0"/>
+<stop stop-color="oklch(0.58 0.12 140)" offset=".68543"/>
+<stop stop-color="oklch(0.62 0.15 195)" offset="1"/>
 </linearGradient>
 <clipPath id="b">
 <rect width="960" height="104" />
