@@ -137,7 +137,8 @@
         <link href="https://jypark.pe.kr/blog/csharp-thread-parallel-foreach-safe-cancellation"/>
         <updated>2025-06-02T09:00:00.000Z</updated>
         <summary type="html"><![CDATA[C#에서 Thread.Abort() 없이 Thread와 Parallel.ForEach를 안전하게 중단하는 방법을 CancellationToken과 플래그 패턴으로 알아봅니다.]]></summary>
-        <content type="html"><![CDATA[<p>멀티스레딩 환경에서 작업을 안전하게 중단하는 것은 중요한 과제입니다. 특히 C#에서 Thread.Abort()가 .NET 5 이상에서 지원되지 않으면서, 안전한 중단 방법에 대한 이해가 더욱 중요해졌습니다.</p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="safe-thread-cancellation-in-csharp" src="https://jypark.pe.kr/assets/images/safe-thread-cancellation-in-csharp-94ea6ded89c3d51ff7639164920a117d.webp" width="1200" height="800" class="img_ev3q">
+멀티스레딩 환경에서 작업을 안전하게 중단하는 것은 중요한 과제입니다. 특히 C#에서 Thread.Abort()가 .NET 5 이상에서 지원되지 않으면서, 안전한 중단 방법에 대한 이해가 더욱 중요해졌습니다.</p>
 <blockquote>
 <p><strong>TL;DR</strong>: Thread.Abort() 대신 CancellationToken이나 플래그 패턴을 사용하여 Thread와 Parallel.ForEach를 안전하게 중단할 수 있습니다. 이 방법들은 리소스 누수와 데이터 손상을 방지하며 .NET의 표준 취소 패턴을 따릅니다.</p>
 </blockquote>
@@ -391,11 +392,11 @@
         <link href="https://jypark.pe.kr/blog/tailwind-css-v4-complete-guide"/>
         <updated>2025-05-30T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Tailwind CSS v4.0의 Oxide 엔진과 CSS-first 접근법, v4.1의 텍스트 섀도우와 마스킹 유틸리티까지. 실무에서 바로 활용할 수 있는 핵심 변경사항을 정리했습니다.]]></summary>
-        <content type="html"><![CDATA[<p>Tailwind CSS가 v4.0과 v4.1에서 프론트엔드 개발 패러다임을 바꾸는 혁신적인 변화를 가져왔습니다. 이 포스트에서는 실무에서 바로 활용할 수 있는 핵심 변경사항과 마이그레이션 가이드를 제공합니다.</p>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="tailwind css" src="https://jypark.pe.kr/assets/images/tailwindcss-ea5bfed35dc9779fc91e5fda8ea90424.png" width="1201" height="720" class="img_ev3q"></p>
+<p>Tailwind CSS가 v4.0과 v4.1에서 프론트엔드 개발 패러다임을 바꾸는 혁신적인 변화를 가져왔습니다. 이 포스트에서는 실무에서 바로 활용할 수 있는 핵심 변경사항과 마이그레이션 가이드를 제공합니다.</p>
 <blockquote>
 <p><strong>TL;DR</strong>: Tailwind CSS v4.0은 Rust 기반 Oxide 엔진으로 빌드 속도를 100배 향상시키고 CSS-first 설정을 도입했습니다. v4.1은 텍스트 섀도우, 마스킹 유틸리티와 구형 브라우저 호환성을 대폭 개선했습니다.</p>
 </blockquote>
-<p><img decoding="async" loading="lazy" alt="tailwind css" src="https://jypark.pe.kr/assets/images/tailwindcss-ea5bfed35dc9779fc91e5fda8ea90424.png" width="1201" height="720" class="img_ev3q"></p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="v40-성능과-현대-css의-혁신">v4.0: 성능과 현대 CSS의 혁신<a href="https://jypark.pe.kr/blog/tailwind-css-v4-complete-guide#v40-%EC%84%B1%EB%8A%A5%EA%B3%BC-%ED%98%84%EB%8C%80-css%EC%9D%98-%ED%98%81%EC%8B%A0" class="hash-link" aria-label="v4.0: 성능과 현대 CSS의 혁신에 대한 직접 링크" title="v4.0: 성능과 현대 CSS의 혁신에 대한 직접 링크">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="-oxide-엔진-빌드-성능의-혁명">🚀 Oxide 엔진: 빌드 성능의 혁명<a href="https://jypark.pe.kr/blog/tailwind-css-v4-complete-guide#-oxide-%EC%97%94%EC%A7%84-%EB%B9%8C%EB%93%9C-%EC%84%B1%EB%8A%A5%EC%9D%98-%ED%98%81%EB%AA%85" class="hash-link" aria-label="🚀 Oxide 엔진: 빌드 성능의 혁명에 대한 직접 링크" title="🚀 Oxide 엔진: 빌드 성능의 혁명에 대한 직접 링크">​</a></h3>
 <p>Tailwind CSS v4.0의 가장 큰 변화는 Rust로 작성된 <strong>Oxide 엔진</strong> 도입입니다.</p>
