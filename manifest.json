@@ -1,13 +1,29 @@
 {
   "name": "쌍팔년생 개발자 블로그",
   "short_name": "쌍팔년생 개발자",
-  "description": "쌍팔년생 개발자의 개인 블로그 - 프론트엔드 개발, React, TypeScript에 대한 경험과 지식을 공유합니다",
+  "description": "개발 경험과 지식을 공유하는 개인 블로그",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "theme_color": "#2563eb",
   "background_color": "#ffffff",
-  "theme_color": "#3182ce",
   "orientation": "portrait-primary",
   "icons": [
+    {
+      "src": "/img/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
     {
       "src": "/img/logo-192.png",
       "sizes": "192x192",
@@ -19,16 +35,9 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
     }
   ],
-  "categories": ["education", "productivity", "technology"],
+  "categories": ["education", "productivity"],
   "lang": "ko",
-  "dir": "ltr",
-  "scope": "/",
-  "prefer_related_applications": false
+  "dir": "ltr"
 } 

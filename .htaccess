@@ -88,4 +88,37 @@ FileETag None
     <FilesMatch "\.(js|css|xml|gz|html)$">
         Header append Vary Accept-Encoding
     </FilesMatch>
+</IfModule>
+
+# Apache 보안 헤더 및 쿠키 정책 설정
+<IfModule mod_headers.c>
+    # SameSite 쿠키 정책
+    Header always edit Set-Cookie ^(.*)$ "$1; SameSite=Strict; Secure"
+    
+    # 보안 헤더
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # CSP 헤더
+    Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https:; frame-src 'self' https:; media-src 'self' data:;"
+    
+    # CORS 설정
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+</IfModule>
+
+# 캐시 설정
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/avif "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
 </IfModule> 
