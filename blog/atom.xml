@@ -2,12 +2,184 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jypark.pe.kr/blog</id>
     <title>쌍팔년생 개발자 블로그</title>
-    <updated>2025-06-02T13:00:00.000Z</updated>
+    <updated>2025-06-04T10:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jypark.pe.kr/blog"/>
     <subtitle>쌍팔년생 개발자의 프론트엔드 개발 경험과 지식 공유</subtitle>
     <icon>https://jypark.pe.kr/favicon.ico</icon>
     <rights>Copyright © 2025 쌍팔년생 개발자</rights>
+    <entry>
+        <title type="html"><![CDATA[DiffX: 확장 가능한 차세대 Diff 형식]]></title>
+        <id>https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format</id>
+        <link href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format"/>
+        <updated>2025-06-04T10:00:00.000Z</updated>
+        <summary type="html"><![CDATA[기존 Unified Diff의 한계를 극복한 새로운 구조화된 차이점 비교 형식 DiffX를 소개합니다. 메타데이터 지원, 멀티 커밋, 바이너리 패치 등 현대적 기능을 제공합니다.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="DiffX" src="https://jypark.pe.kr/assets/images/diffx-6c5344fa17dee1eacb2cfb28c6d25421.png" width="1536" height="1024" class="img_ev3q"></p>
+<p>소프트웨어 개발자라면 diff 파일을 다뤄본 경험이 있을 것입니다. Git diff, Subversion diff, CVS diff... 어떤 형태든 말이죠. 변경사항을 만들고, 명령어를 실행하면 diff가 출력됩니다. 이를 다른 사람에게 전달하거나, 다른 곳에 적용하거나, 리뷰를 위해 업로드하죠.</p>
+<blockquote>
+<p><strong>TL;DR</strong>: DiffX는 기존 Unified Diff의 한계를 극복한 새로운 구조화된 차이점 비교 형식입니다. 표준화된 메타데이터, 멀티 커밋 지원, 바이너리 패치 등 현대적 기능을 제공하면서도 기존 도구와 완전히 호환됩니다.</p>
+</blockquote>
+<p>하지만 현재의 diff 형식들은 현대적 개발 요구사항을 충족하지 못하고 있습니다.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="현재-diff-형식들의-모습">현재 Diff 형식들의 모습<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%ED%98%84%EC%9E%AC-diff-%ED%98%95%EC%8B%9D%EB%93%A4%EC%9D%98-%EB%AA%A8%EC%8A%B5" class="hash-link" aria-label="현재 Diff 형식들의 모습에 대한 직접 링크" title="현재 Diff 형식들의 모습에 대한 직접 링크">​</a></h2>
+<p>대부분의 사람과 도구는 Unified Diff를 사용합니다. 다음과 같은 형태들이죠:</p>
+<div class="language-diff codeBlockContainer_APcc theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_m3Ux"><pre tabindex="0" class="prism-code language-diff codeBlock_qGQc thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_p187"><span class="token-line" style="color:#393A34"><span class="token coord">--- readme    2016-01-26 16:29:12.000000000 -0800</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">+++ readme    2016-01-31 11:54:32.000000000 -0800</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">@@ -1 +1,3 @@</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token unchanged prefix unchanged"> </span><span class="token unchanged line">Hello there</span><br></span><span class="token-line" style="color:#393A34"><span class="token unchanged line"></span><span class="token inserted-sign inserted prefix inserted" style="color:#36acaa">+</span><span class="token inserted-sign inserted line" style="color:#36acaa"></span><br></span><span class="token-line" style="color:#393A34"><span class="token inserted-sign inserted line" style="color:#36acaa"></span><span class="token inserted-sign inserted prefix inserted" style="color:#36acaa">+</span><span class="token inserted-sign inserted line" style="color:#36acaa">Oh hi!</span><br></span></code></pre><div class="buttonGroup_6DOT"><button type="button" aria-label="클립보드에 코드 복사" title="복사" class="clean-btn"><span class="copyButtonIcons_FhaS" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_phi_"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_FfTR"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>Git diff:</p>
+<div class="language-diff codeBlockContainer_APcc theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_m3Ux"><pre tabindex="0" class="prism-code language-diff codeBlock_qGQc thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_p187"><span class="token-line" style="color:#393A34"><span class="token plain">diff --git a/readme b/readme</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">index d6613f5..5b50866 100644</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">--- a/readme</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">+++ b/readme</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">@@ -1 +1,3 @@</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token unchanged prefix unchanged"> </span><span class="token unchanged line">Hello there</span><br></span><span class="token-line" style="color:#393A34"><span class="token unchanged line"></span><span class="token inserted-sign inserted prefix inserted" style="color:#36acaa">+</span><span class="token inserted-sign inserted line" style="color:#36acaa"></span><br></span><span class="token-line" style="color:#393A34"><span class="token inserted-sign inserted line" style="color:#36acaa"></span><span class="token inserted-sign inserted prefix inserted" style="color:#36acaa">+</span><span class="token inserted-sign inserted line" style="color:#36acaa">Oh hi!</span><br></span></code></pre><div class="buttonGroup_6DOT"><button type="button" aria-label="클립보드에 코드 복사" title="복사" class="clean-btn"><span class="copyButtonIcons_FhaS" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_phi_"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_FfTR"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>SVN diff:</p>
+<div class="language-diff codeBlockContainer_APcc theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_m3Ux"><pre tabindex="0" class="prism-code language-diff codeBlock_qGQc thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_p187"><span class="token-line" style="color:#393A34"><span class="token plain">Index: readme</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">===================================================================</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">--- (revision 123)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">+++ (working copy)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Property changes on: .</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token coord">-------------------------------------------------------------------</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Modified: myproperty</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">## -1 +1 ##</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token deleted-sign deleted prefix deleted" style="color:#d73a49">-</span><span class="token deleted-sign deleted line" style="color:#d73a49">old value</span><br></span><span class="token-line" style="color:#393A34"><span class="token deleted-sign deleted line" style="color:#d73a49"></span><span class="token inserted-sign inserted prefix inserted" style="color:#36acaa">+</span><span class="token inserted-sign inserted line" style="color:#36acaa">new value</span><br></span></code></pre><div class="buttonGroup_6DOT"><button type="button" aria-label="클립보드에 코드 복사" title="복사" class="clean-btn"><span class="copyButtonIcons_FhaS" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_phi_"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_FfTR"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="기존-diff의-근본적-문제점">기존 Diff의 근본적 문제점<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EA%B8%B0%EC%A1%B4-diff%EC%9D%98-%EA%B7%BC%EB%B3%B8%EC%A0%81-%EB%AC%B8%EC%A0%9C%EC%A0%90" class="hash-link" aria-label="기존 Diff의 근본적 문제점에 대한 직접 링크" title="기존 Diff의 근본적 문제점에 대한 직접 링크">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="1-표준화-부족">1. 표준화 부족<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#1-%ED%91%9C%EC%A4%80%ED%99%94-%EB%B6%80%EC%A1%B1" class="hash-link" aria-label="1. 표준화 부족에 대한 직접 링크" title="1. 표준화 부족에 대한 직접 링크">​</a></h3>
+<p>Unified Diff는 diff의 일부만 표준화합니다:</p>
+<ul>
+<li><code>---</code>/<code>+++</code> 라인 (파일 식별용)</li>
+<li><code>@@ ... @@</code> 라인 (hunk 오프셋/크기)</li>
+<li><code>-</code>/<code>+</code> (삭제/추가된 라인)</li>
+</ul>
+<blockquote>
+<p>"Unified format은 가장 널리 사용되는 diff 형식이지만, 표준화되지 않은 메타데이터 처리로 인해 도구 간 호환성 문제가 지속적으로 발생하고 있습니다." - DiffX 문제점 분석 문서<sup><a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fn-5-e2462e" id="user-content-fnref-5-e2462e" data-footnote-ref="true" aria-describedby="footnote-label">1</a></sup></p>
+</blockquote>
+<p>하지만 다음은 표준화되지 않았습니다:</p>
+<ul>
+<li>인코딩</li>
+<li>리비전 정보</li>
+<li>메타데이터</li>
+<li>파일명이나 경로 표현 방식</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-현대적-요구사항-미충족">2. 현대적 요구사항 미충족<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#2-%ED%98%84%EB%8C%80%EC%A0%81-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EB%AF%B8%EC%B6%A9%EC%A1%B1" class="hash-link" aria-label="2. 현대적 요구사항 미충족에 대한 직접 링크" title="2. 현대적 요구사항 미충족에 대한 직접 링크">​</a></h3>
+<ul>
+<li><strong>단일 diff에 여러 커밋 표현 불가</strong></li>
+<li><strong>바이너리 패치 표준 형식 없음</strong></li>
+<li><strong>텍스트 인코딩 정보 없음</strong> (생각보다 큰 문제)</li>
+<li><strong>메타데이터를 위한 표준 형식 없음</strong> (각자 다른 방식으로 구현)</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-파싱의-어려움">3. 파싱의 어려움<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#3-%ED%8C%8C%EC%8B%B1%EC%9D%98-%EC%96%B4%EB%A0%A4%EC%9B%80" class="hash-link" aria-label="3. 파싱의 어려움에 대한 직접 링크" title="3. 파싱의 어려움에 대한 직접 링크">​</a></h3>
+<p>패치 도구, 코드 리뷰 도구, 코드 분석 도구들이 다양한 소스 컨트롤 시스템의 diff를 안정적으로 파싱하기 매우 어렵습니다. 변경된 라인 외의 유용한 정보를 추출하는 것은 더욱 어렵죠.</p>
+<p>GNU Patch가 처리해야 하는 복잡성을 보면 이 문제의 심각성을 알 수 있습니다<sup><a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fn-1-e2462e" id="user-content-fnref-1-e2462e" data-footnote-ref="true" aria-describedby="footnote-label">2</a></sup>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="diffx-해결책">DiffX: 해결책<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#diffx-%ED%95%B4%EA%B2%B0%EC%B1%85" class="hash-link" aria-label="DiffX: 해결책에 대한 직접 링크" title="DiffX: 해결책에 대한 직접 링크">​</a></h2>
+<p>DiffX(Extensible Diffs)는 이러한 문제들을 해결하기 위해 설계된 새로운 형식입니다<sup><a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fn-2-e2462e" id="user-content-fnref-2-e2462e" data-footnote-ref="true" aria-describedby="footnote-label">3</a></sup>. 기존 도구와 완전히 호환되면서도 미래 지향적이고 사람이 읽을 수 있는 형태를 유지합니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="diffx-파일-예시">DiffX 파일 예시<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#diffx-%ED%8C%8C%EC%9D%BC-%EC%98%88%EC%8B%9C" class="hash-link" aria-label="DiffX 파일 예시에 대한 직접 링크" title="DiffX 파일 예시에 대한 직접 링크">​</a></h3>
+<p>다음은 DiffX 공식 문서에서 제공하는 실제 예시입니다<sup><a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fn-2-e2462e" id="user-content-fnref-2-e2462e-2" data-footnote-ref="true" aria-describedby="footnote-label">3</a></sup>:</p>
+<div class="language-diffx codeBlockContainer_APcc theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_m3Ux"><pre tabindex="0" class="prism-code language-diffx codeBlock_qGQc thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_p187"><span class="token-line" style="color:#393A34"><span class="token plain">#diffx: encoding=utf-8, version=1.0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">#.change:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">#..preamble: indent=4, length=319, mimetype=text/markdown</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Convert legacy header building code to Python 3.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Header building for messages used old Python 2.6-era list comprehensions</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    with tuples rather than modern dictionary comprehensions in order to build</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    a message list. This change modernizes that, and swaps out six for a</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    3-friendly `.items()` call.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">#..meta: format=json, length=270</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">{</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "author": "Christian Hammond &lt;christian@example.com&gt;",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "committer": "Christian Hammond &lt;christian@example.com&gt;",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "committer date": "2021-06-02T13:12:06-07:00",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "date": "2021-06-01T19:26:31-07:00",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "id": "a25e7b28af5e3184946068f432122c68c1a30b23"</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">}</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">#..file:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">#...meta: format=json, length=176</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">{</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "path": "/src/message.py",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    "revision": {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        "new": "f814cf74766ba3e6d175254996072233ca18a690",</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        "old": "9f6a412b3aee0a55808928b43f848202b4ee0f8d"</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    }</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">}</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">#...diff: length=629</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">--- /src/message.py</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+++ /src/message.py</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">@@ -164,10 +164,10 @@</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">             not isinstance(headers, MultiValueDict)):</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">             # Instantiating a MultiValueDict from a dict does not ensure that</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">             # values are lists, so we have to ensure that ourselves.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-            headers = MultiValueDict(dict(</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-                (key, [value])</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-                for key, value in six.iteritems(headers)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">-            ))</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+            headers = MultiValueDict({</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+                key: [value]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+                for key, value in headers.items()</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">+            })</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         if in_reply_to:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">             headers['In-Reply-To'] = in_reply_to</span><br></span></code></pre><div class="buttonGroup_6DOT"><button type="button" aria-label="클립보드에 코드 복사" title="복사" class="clean-btn"><span class="copyButtonIcons_FhaS" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_phi_"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_FfTR"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="diffx의-주요-특징">DiffX의 주요 특징<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#diffx%EC%9D%98-%EC%A3%BC%EC%9A%94-%ED%8A%B9%EC%A7%95" class="hash-link" aria-label="DiffX의 주요 특징에 대한 직접 링크" title="DiffX의 주요 특징에 대한 직접 링크">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="1-구조화된-메타데이터">1. 구조화된 메타데이터<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#1-%EA%B5%AC%EC%A1%B0%ED%99%94%EB%90%9C-%EB%A9%94%ED%83%80%EB%8D%B0%EC%9D%B4%ED%84%B0" class="hash-link" aria-label="1. 구조화된 메타데이터에 대한 직접 링크" title="1. 구조화된 메타데이터에 대한 직접 링크">​</a></h3>
+<ul>
+<li>diff와 각 커밋, 파일에 대한 메타데이터를 표준화된 방식으로 저장</li>
+<li>JSON 형식으로 구조화된 정보 제공</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-다중-커밋-지원">2. 다중 커밋 지원<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#2-%EB%8B%A4%EC%A4%91-%EC%BB%A4%EB%B0%8B-%EC%A7%80%EC%9B%90" class="hash-link" aria-label="2. 다중 커밋 지원에 대한 직접 링크" title="2. 다중 커밋 지원에 대한 직접 링크">​</a></h3>
+<ul>
+<li>하나의 diff 파일에 여러 커밋 표현 가능</li>
+<li>복잡한 변경사항의 히스토리 보존</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-바이너리-지원">3. 바이너리 지원<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#3-%EB%B0%94%EC%9D%B4%EB%84%88%EB%A6%AC-%EC%A7%80%EC%9B%90" class="hash-link" aria-label="3. 바이너리 지원에 대한 직접 링크" title="3. 바이너리 지원에 대한 직접 링크">​</a></h3>
+<ul>
+<li>Git 호환 바이너리 콘텐츠 diff 지원</li>
+<li>이미지, 실행파일 등의 변경사항도 처리</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="4-인코딩-인식">4. 인코딩 인식<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#4-%EC%9D%B8%EC%BD%94%EB%94%A9-%EC%9D%B8%EC%8B%9D" class="hash-link" aria-label="4. 인코딩 인식에 대한 직접 링크" title="4. 인코딩 인식에 대한 직접 링크">​</a></h3>
+<ul>
+<li>파일과 diff 메타데이터의 텍스트 인코딩 정보 포함</li>
+<li>다국어 프로젝트에서 중요한 기능</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="5-완전한-호환성">5. 완전한 호환성<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#5-%EC%99%84%EC%A0%84%ED%95%9C-%ED%98%B8%ED%99%98%EC%84%B1" class="hash-link" aria-label="5. 완전한 호환성에 대한 직접 링크" title="5. 완전한 호환성에 대한 직접 링크">​</a></h3>
+<ul>
+<li>기존 파서와 패처에서 모든 표준 diff 기능 동작</li>
+<li>새로운 기능은 추가 도구 지원 필요하지만 파싱은 가능</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="6-확장성">6. 확장성<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#6-%ED%99%95%EC%9E%A5%EC%84%B1" class="hash-link" aria-label="6. 확장성에 대한 직접 링크" title="6. 확장성에 대한 직접 링크">​</a></h3>
+<ul>
+<li>기존 파서를 깨뜨리지 않고 형식 확장 가능</li>
+<li>미래의 요구사항에 대비</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="7-변경-가능성">7. 변경 가능성<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#7-%EB%B3%80%EA%B2%BD-%EA%B0%80%EB%8A%A5%EC%84%B1" class="hash-link" aria-label="7. 변경 가능성에 대한 직접 링크" title="7. 변경 가능성에 대한 직접 링크">​</a></h3>
+<ul>
+<li>도구가 diff를 쉽게 열고, 새 데이터를 기록하고, 다시 저장 가능</li>
+<li>메타데이터 수정과 업데이트가 간단</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="diffx가-제공하는-것">DiffX가 제공하는 것<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#diffx%EA%B0%80-%EC%A0%9C%EA%B3%B5%ED%95%98%EB%8A%94-%EA%B2%83" class="hash-link" aria-label="DiffX가 제공하는 것에 대한 직접 링크" title="DiffX가 제공하는 것에 대한 직접 링크">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-포함되는-기능">✅ 포함되는 기능<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#-%ED%8F%AC%ED%95%A8%EB%90%98%EB%8A%94-%EA%B8%B0%EB%8A%A5" class="hash-link" aria-label="✅ 포함되는 기능에 대한 직접 링크" title="✅ 포함되는 기능에 대한 직접 링크">​</a></h3>
+<ul>
+<li>diff 파싱을 위한 표준화된 규칙</li>
+<li>diff, 커밋, 파일별 메타데이터의 공식적 저장 및 명명</li>
+<li>기존 파서를 깨뜨리지 않는 형식 확장 능력</li>
+<li>하나의 diff 파일에 다중 커밋 표현</li>
+<li>Git 호환 바이너리 콘텐츠 diff</li>
+<li>파일과 diff 메타데이터의 텍스트 인코딩 정보</li>
+<li>모든 기존 파서 및 패처와의 호환성</li>
+<li>diff 내용의 변경 및 수정 가능성</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-diffx의-목표가-아닌-것">❌ DiffX의 목표가 아닌 것<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#-diffx%EC%9D%98-%EB%AA%A9%ED%91%9C%EA%B0%80-%EC%95%84%EB%8B%8C-%EA%B2%83" class="hash-link" aria-label="❌ DiffX의 목표가 아닌 것에 대한 직접 링크" title="❌ DiffX의 목표가 아닌 것에 대한 직접 링크">​</a></h3>
+<ul>
+<li>모든 도구가 새로운 파일 형식을 지원하도록 강제</li>
+<li>기존 diff를 새 도구에서 깨뜨리거나 도구 재작성 요구</li>
+<li>벤더 락인 생성</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>호환성 주의사항</div><div class="admonitionContent_BuS1"><p>DiffX의 새로운 기능들은 해당 기능을 지원하는 도구에서만 완전히 활용할 수 있습니다. 하지만 기본적인 diff 기능은 모든 기존 도구에서 정상 동작합니다<sup><a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fn-2-e2462e" id="user-content-fnref-2-e2462e-3" data-footnote-ref="true" aria-describedby="footnote-label">3</a></sup>.</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="현재-상황과-향후-계획">현재 상황과 향후 계획<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%ED%98%84%EC%9E%AC-%EC%83%81%ED%99%A9%EA%B3%BC-%ED%96%A5%ED%9B%84-%EA%B3%84%ED%9A%8D" class="hash-link" aria-label="현재 상황과 향후 계획에 대한 직접 링크" title="현재 상황과 향후 계획에 대한 직접 링크">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="구현체">구현체<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EA%B5%AC%ED%98%84%EC%B2%B4" class="hash-link" aria-label="구현체에 대한 직접 링크" title="구현체에 대한 직접 링크">​</a></h3>
+<ul>
+<li><strong>Python</strong>: <a href="https://github.com/beanbaginc/pydiffx" target="_blank" rel="noopener noreferrer">pydiffx</a> - 공식 Python 구현체<sup><a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fn-3-e2462e" id="user-content-fnref-3-e2462e" data-footnote-ref="true" aria-describedby="footnote-label">4</a></sup></li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="사용-중인-제품">사용 중인 제품<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EC%82%AC%EC%9A%A9-%EC%A4%91%EC%9D%B8-%EC%A0%9C%ED%92%88" class="hash-link" aria-label="사용 중인 제품에 대한 직접 링크" title="사용 중인 제품에 대한 직접 링크">​</a></h3>
+<ul>
+<li><strong>Review Board</strong> (Beanbag): DiffX로 기존 diff 관련 문제들을 해결하고 모든 제품에 지원 추가 예정<sup><a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fn-4-e2462e" id="user-content-fnref-4-e2462e" data-footnote-ref="true" aria-describedby="footnote-label">5</a></sup></li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="개발-현황">개발 현황<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EA%B0%9C%EB%B0%9C-%ED%98%84%ED%99%A9" class="hash-link" aria-label="개발 현황에 대한 직접 링크" title="개발 현황에 대한 직접 링크">​</a></h3>
+<p>현재 DiffX는 활발히 개발되고 있는 오픈소스 프로젝트입니다. Beanbag에서 주도하고 있으며, Review Board의 실제 운영 환경에서 검증되고 있습니다.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="참고-자료">참고 자료<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EC%B0%B8%EA%B3%A0-%EC%9E%90%EB%A3%8C" class="hash-link" aria-label="참고 자료에 대한 직접 링크" title="참고 자료에 대한 직접 링크">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="공식-문서">공식 문서<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EA%B3%B5%EC%8B%9D-%EB%AC%B8%EC%84%9C" class="hash-link" aria-label="공식 문서에 대한 직접 링크" title="공식 문서에 대한 직접 링크">​</a></h3>
+<ul>
+<li><a href="https://diffx.org/" target="_blank" rel="noopener noreferrer">DiffX 공식 웹사이트</a> - 프로젝트 홈페이지</li>
+<li><a href="https://diffx.org/spec/" target="_blank" rel="noopener noreferrer">DiffX 파일 형식 사양서</a> - 기술 사양 상세 문서</li>
+<li><a href="https://diffx.org/examples/" target="_blank" rel="noopener noreferrer">DiffX 예제 파일들</a> - 실제 사용 예시</li>
+<li><a href="https://diffx.org/faq/" target="_blank" rel="noopener noreferrer">FAQ</a> - 자주 묻는 질문</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="배경-자료">배경 자료<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EB%B0%B0%EA%B2%BD-%EC%9E%90%EB%A3%8C" class="hash-link" aria-label="배경 자료에 대한 직접 링크" title="배경 자료에 대한 직접 링크">​</a></h3>
+<ul>
+<li><a href="https://diffx.org/problems/" target="_blank" rel="noopener noreferrer">Diff의 문제점 상세 분석</a> - 기존 diff 형식의 문제점</li>
+<li><a href="https://www.gnu.org/software/diffutils/" target="_blank" rel="noopener noreferrer">GNU diff 문서</a> - 전통적인 diff 도구</li>
+<li><a href="https://git-scm.com/docs/git-diff" target="_blank" rel="noopener noreferrer">Git diff 형식 문서</a> - Git diff 형식 설명</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="관련-프로젝트">관련 프로젝트<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EA%B4%80%EB%A0%A8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8" class="hash-link" aria-label="관련 프로젝트에 대한 직접 링크" title="관련 프로젝트에 대한 직접 링크">​</a></h3>
+<ul>
+<li><a href="https://www.reviewboard.org/" target="_blank" rel="noopener noreferrer">Review Board</a> - 코드 리뷰 도구</li>
+<li><a href="https://www.beanbaginc.com/" target="_blank" rel="noopener noreferrer">Beanbag, Inc.</a> - DiffX 개발사</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="결론">결론<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EA%B2%B0%EB%A1%A0" class="hash-link" aria-label="결론에 대한 직접 링크" title="결론에 대한 직접 링크">​</a></h2>
+<p>DiffX는 현대적 소프트웨어 개발의 요구사항을 충족하면서도 기존 생태계와의 호환성을 유지하는 차세대 diff 형식입니다. 구조화된 메타데이터, 다중 커밋 지원, 바이너리 처리 등의 기능을 통해 개발 도구들이 더 풍부한 정보를 활용할 수 있게 해줍니다.</p>
+<p>기존 Unified Diff의 관용적 특성을 활용하여 점진적 채택이 가능하며, 도구 개발자와 사용자 모두에게 이익을 제공하는 실용적인 해결책입니다.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="각주">각주<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#%EA%B0%81%EC%A3%BC" class="hash-link" aria-label="각주에 대한 직접 링크" title="각주에 대한 직접 링크">​</a></h2>
+<!-- -->
+<section data-footnotes="true" class="footnotes"><h2 class="anchor anchorWithStickyNavbar_LWe7 sr-only" id="footnote-label">Footnotes<a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#footnote-label" class="hash-link" aria-label="Footnotes에 대한 직접 링크" title="Footnotes에 대한 직접 링크">​</a></h2>
+<ol>
+<li id="user-content-fn-5-e2462e">
+<p>The Problems with Diffs - <a href="https://diffx.org/problems/" target="_blank" rel="noopener noreferrer">https://diffx.org/problems/</a> <a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fnref-5-e2462e" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-1-e2462e">
+<p>GNU diff utilities - <a href="https://www.gnu.org/software/diffutils/" target="_blank" rel="noopener noreferrer">https://www.gnu.org/software/diffutils/</a> <a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fnref-1-e2462e" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2-e2462e">
+<p>DiffX 공식 사양서 - <a href="https://diffx.org/spec/" target="_blank" rel="noopener noreferrer">https://diffx.org/spec/</a> <a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fnref-2-e2462e" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a> <a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fnref-2-e2462e-2" data-footnote-backref="" aria-label="Back to reference 3-2" class="data-footnote-backref">↩<sup>2</sup></a> <a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fnref-2-e2462e-3" data-footnote-backref="" aria-label="Back to reference 3-3" class="data-footnote-backref">↩<sup>3</sup></a></p>
+</li>
+<li id="user-content-fn-3-e2462e">
+<p>pydiffx GitHub 저장소 - <a href="https://github.com/beanbaginc/pydiffx" target="_blank" rel="noopener noreferrer">https://github.com/beanbaginc/pydiffx</a> <a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fnref-3-e2462e" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-4-e2462e">
+<p>Review Board 공식 웹사이트 - <a href="https://www.reviewboard.org/" target="_blank" rel="noopener noreferrer">https://www.reviewboard.org/</a> <a href="https://jypark.pe.kr/blog/diffx-next-generation-extensible-diff-format#user-content-fnref-4-e2462e" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>]]></content>
+        <author>
+            <name>Jeongyong Park</name>
+            <email>kladess@gmail.com</email>
+            <uri>https://github.com/jeongyong-park</uri>
+        </author>
+        <category label="diffx" term="diffx"/>
+        <category label="diff" term="diff"/>
+        <category label="git" term="git"/>
+        <category label="version-control" term="version-control"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LM Studio: 내 PC에서 AI 언어모델을 자유롭게 실행하는 방법]]></title>
         <id>https://jypark.pe.kr/blog/lm-studio-local-ai-guide</id>
