@@ -1,19 +1,15 @@
 /* Critical CSS for Above-the-Fold Content */
 /* LCP 최적화를 위한 핵심 스타일 */
 
-/* 폰트 로딩 최적화 */
-@font-face {
-  font-family: 'Pretendard Variable';
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap; /* FOIT -> FOUT로 변경하여 텍스트 렌더링 빠르게 */
-  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/* 
+  주의: 이 파일은 현재 Docusaurus에서 사용되지 않습니다.
+  폰트 로딩은 docusaurus.config.js에서 다이나믹 서브셋으로 처리됩니다.
+  필요하다면 이 파일을 완전히 제거하거나 다른 용도로 사용하세요.
+*/
 
 /* 기본 레이아웃 스타일 - 즉시 렌더링 */
 html {
-  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans KR', sans-serif;
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
