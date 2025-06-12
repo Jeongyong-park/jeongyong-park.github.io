@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjeongyong_park_github_io=self.webpackChunkjeongyong_park_github_io||[]).push([["2494"],{8598:function(e){e.exports=JSON.parse('{"metadata":{"permalink":"/blog/page/2","page":2,"postsPerPage":10,"totalPages":2,"totalCount":13,"previousPage":"/blog","blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

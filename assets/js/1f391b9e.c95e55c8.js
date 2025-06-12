@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjeongyong_park_github_io=self.webpackChunkjeongyong_park_github_io||[]).push([["2493"],{6540:function(n,e,o){o.d(e,{Z:()=>r});var t=o(5893);o(7294);var u=o(65),i=o(7545);function r(n){let{children:e}=n;return(0,t.jsx)(u.Z,{components:i.Z,children:e})}}}]);
